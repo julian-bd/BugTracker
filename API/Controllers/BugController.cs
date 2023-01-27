@@ -36,9 +36,19 @@ public class BugController : ControllerBase
         await _bugRepository.Create(bug);
     }
     
-    [HttpPut]
-    public async Task Update([FromBody] UpdateBug request)
+    [HttpPatch("{id:guid}/close")]
+    public async Task Close(Guid id)
     {
-        await _bugRepository.Update(request.Bug);
+        var bug = await _bugRepository.GetById(id);
+        bug.Close();
+        await _bugRepository.Update(bug);
+    }
+
+    [HttpPatch("{id:guid}/close")]
+    public async Task AssignUser(Guid id, [FromBody] AssignUser request)
+    {
+        var bug = await _bugRepository.GetById(id);
+        bug.AssignToUser(request.userId);
+        await _bugRepository.Update(bug);
     }
 }

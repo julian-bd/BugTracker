@@ -1,11 +1,9 @@
-﻿using Domain.DataStorage;
-
-namespace Domain.Models;
+﻿namespace Domain.Models;
 
 public class Bug : ReadModel
 {
-    private readonly List<User> _users;
-    public IEnumerable<User> Users => _users;
+    private readonly List<Guid> _users;
+    public IEnumerable<Guid> Users => _users;
     public bool IsOpen { get; private set; }
 
     public string Description { get; }
@@ -13,12 +11,12 @@ public class Bug : ReadModel
     public string Title { get; }
 
 
-    public Bug(string title, string description) 
+    public Bug(string title, string description)
     {
         Title = title;
         Description = description;
         IsOpen = true;
-        _users = new List<User>();
+        _users = new List<Guid>();
     }
 
     public void Close()
@@ -26,7 +24,7 @@ public class Bug : ReadModel
         IsOpen = false;
     }
 
-    public void AssignToUser(User user)
+    public void AssignToUser(Guid user)
     {
         _users.Add(user);
     }

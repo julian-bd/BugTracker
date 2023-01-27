@@ -79,18 +79,42 @@ public class BugControllerUnitTests
     }
     
     [Fact]
-    public async Task UpdateSavesBugToRepository()
+    public async Task CloseSetsABugToClosedAndSavesIt()
     {
         // Arrange
-        var request = _fixture.Create<UpdateBug>();
+        var bug = _fixture.Create<Bug>();
         var fakeBugRepository = A.Fake<IRepository<Bug>>();
+        A.CallTo(() => fakeBugRepository.GetById(bug.Id))
+            .Returns(bug);
         var controller = new BugController(fakeBugRepository);
         
         // Act
-        await controller.Update(request);
+        await controller.Close(bug.Id);
         
         // Assert
-        A.CallTo(() => fakeBugRepository.Update(request.Bug))
-            .MustHaveHappenedOnceExactly();
+        A.CallTo(() => fakeBugRepository.Update(A<Bug>.That.Matches(b =>
+            b == bug && b.IsOpen == false)
+        )).MustHaveHappenedOnceExactly();
+    }
+    
+    [Fact]
+    public async Task AssignSavesUserToBug()
+    {
+        // Arrange
+        var bug = _fixture.Create<Bug>();
+        var fakeBugRepository = A.Fake<IRepository<Bug>>();
+        A.CallTo(() => fakeBugRepository.GetById(bug.Id))
+            .Returns(bug);
+        var controller = new BugController(fakeBugRepository);
+
+        var request = _fixture.Create<AssignUser>();
+        
+        // Act
+        await controller.AssignUser(bug.Id, request);
+        
+        // Assert
+        A.CallTo(() => fakeBugRepository.Update(A<Bug>.That.Matches(b =>
+            b == bug && b.Users.Contains(request.userId))
+        )).MustHaveHappenedOnceExactly();
     }
 }

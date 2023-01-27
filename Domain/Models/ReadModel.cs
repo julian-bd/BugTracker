@@ -1,4 +1,4 @@
-namespace Domain.DataStorage;
+namespace Domain.Models;
 
 public class ReadModel
 {
