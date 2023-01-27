@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using AutoFixture;
 using Domain.Models;
@@ -59,14 +60,14 @@ public class BugUnitTests
     {
         // Arrange
         var bug = new Bug("example-title", "example description");
-        var user = new User("user-name");
+        var userId = Guid.NewGuid();
 
         // Act
-        bug.AssignToUser(user);
+        bug.AssignToUser(userId);
         
         // Assert
         var users = bug.Users.ToList();
         users.Count.Should().Be(1);
-        users.First().Should().Be(user);
+        users.First().Should().Be(userId);
     }
 }

@@ -1,4 +1,3 @@
-using API.Requests;
 using API.Requests.Bug;
 using Domain.DataStorage;
 using Domain.Models;
@@ -44,7 +43,7 @@ public class BugController : ControllerBase
         await _bugRepository.Update(bug);
     }
 
-    [HttpPatch("{id:guid}/close")]
+    [HttpPatch("{id:guid}/assignuser")]
     public async Task AssignUser(Guid id, [FromBody] AssignUser request)
     {
         var bug = await _bugRepository.GetById(id);
