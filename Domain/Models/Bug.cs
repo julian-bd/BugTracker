@@ -1,10 +1,10 @@
-﻿namespace Domain.Models;
+﻿using Domain.DataStorage;
 
-public class Bug
+namespace Domain.Models;
+
+public class Bug : ReadModel
 {
     private readonly List<User> _users;
-    private readonly Guid _id;
-
     public IEnumerable<User> Users => _users;
     public bool IsOpen { get; private set; }
 
@@ -13,11 +13,10 @@ public class Bug
     public string Title { get; }
 
 
-    public Bug(string title, string description)
+    public Bug(string title, string description) 
     {
         Title = title;
         Description = description;
-        _id = Guid.NewGuid();
         IsOpen = true;
         _users = new List<User>();
     }

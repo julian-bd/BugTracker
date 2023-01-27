@@ -1,15 +1,14 @@
+using Domain.DataStorage;
+
 namespace Domain.Models;
 
-public class User
+public class User : ReadModel
 {
-    private readonly Guid _id;
-
     public string Name { get; private set; }
 
     public User(string name)
     {
         Name = name;
-        _id = Guid.NewGuid();
     }
 
     public void ChangeName(string newName)
