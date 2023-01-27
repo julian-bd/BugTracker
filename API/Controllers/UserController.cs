@@ -30,9 +30,11 @@ public class UserController : ControllerBase
         await _userRepository.Create(user);
     }
     
-    [HttpPut]
-    public async Task Update([FromBody] UpdateUser request)
+    [HttpPatch("{id:guid}/changename")]
+    public async Task ChangeName(Guid id, [FromBody] ChangeUserName request)
     {
-        await _userRepository.Update(request.User);
+        var user = await _userRepository.GetById(id);
+        user.ChangeName(request.Name);
+        await _userRepository.Update(user);
     }
 }

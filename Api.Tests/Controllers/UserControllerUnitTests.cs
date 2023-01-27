@@ -61,18 +61,23 @@ public class UserControllerUnitTests
     }
 
     [Fact]
-    public async Task UpdateSavesUserToRepository()
+    public async Task ChangeNameUpdatesUserAndSavesToRepository()
     {
         // Arrange
-        var request = _fixture.Create<UpdateUser>();
+        var user = _fixture.Create<User>();
         var fakeUserRepository = A.Fake<IRepository<User>>();
+        A.CallTo(() => fakeUserRepository.GetById(user.Id))
+            .Returns(user);
+        
+        var request = _fixture.Create<ChangeUserName>();
         var controller = new UserController(fakeUserRepository);
 
         // Act
-        await controller.Update(request);
+        await controller.ChangeName(user.Id, request);
 
         // Assert
-        A.CallTo(() => fakeUserRepository.Update(request.User))
+        A.CallTo(() => fakeUserRepository.Update(A<User>.That.Matches(x =>
+                x == user && x.Name == request.Name)))
             .MustHaveHappenedOnceExactly();
     }
 }
