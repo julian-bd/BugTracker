@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Controllers;
-using API.Requests;
+using API.Requests.Bug;
 using AutoFixture;
 using Domain.DataStorage;
 using Domain.Models;

@@ -1,4 +1,5 @@
 using API.Requests;
+using API.Requests.Bug;
 using Domain.DataStorage;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
