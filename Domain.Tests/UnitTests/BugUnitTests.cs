@@ -1,5 +1,6 @@
 using System.Linq;
 using AutoFixture;
+using Domain.Models;
 using FluentAssertions;
 using Xunit;
 
