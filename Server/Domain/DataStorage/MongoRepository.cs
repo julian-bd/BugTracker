@@ -3,7 +3,7 @@ using MongoDB.Driver;
 
 namespace Domain.DataStorage;
 
-public class MongoRepository<T> : IRepository<T> where T : ReadModel
+public class MongoRepository<T> : IRepository<T> where T : IReadModel
 {
     private readonly IMongoCollection<T> _collection;
 

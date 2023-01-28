@@ -1,8 +1,9 @@
 ﻿namespace Domain.Models;
 
-public class Bug : ReadModel
+public class Bug : IReadModel
 {
     private readonly List<Guid> _users;
+    public Guid Id { get; set; }
     public IEnumerable<Guid> Users => _users;
     public bool IsOpen { get; private set; }
 
@@ -17,6 +18,7 @@ public class Bug : ReadModel
         Description = description;
         IsOpen = true;
         _users = new List<Guid>();
+        Id = Guid.NewGuid();
     }
 
     public void Close()

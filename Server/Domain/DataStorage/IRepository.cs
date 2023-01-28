@@ -2,7 +2,7 @@ using Domain.Models;
 
 namespace Domain.DataStorage;
 
-public interface IRepository<TModel> where TModel : ReadModel
+public interface IRepository<TModel> where TModel : IReadModel
 {
     Task<IEnumerable<TModel>> GetAll();
     Task<TModel> GetById(Guid id);

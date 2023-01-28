@@ -2,7 +2,7 @@ using Domain.Models;
 
 namespace Domain.DataStorage;
 
-public class InMemoryRepository<TModel> : IRepository<TModel> where TModel : ReadModel
+public class InMemoryRepository<TModel> : IRepository<TModel> where TModel : IReadModel
 {
     private readonly Dictionary<Guid, TModel> _collection;
 
