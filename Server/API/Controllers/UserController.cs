@@ -1,4 +1,3 @@
-using API.Requests;
 using API.Requests.User;
 using Domain.DataStorage;
 using Domain.Models;
@@ -15,6 +14,12 @@ public class UserController : ControllerBase
     public UserController(IRepository<User> userRepository)
     {
         _userRepository = userRepository;
+    }
+    
+    [HttpGet]
+    public Task<IEnumerable<User>> GetAll()
+    {
+        return _userRepository.GetAll();
     }
     
     [HttpGet("{id:guid}")]

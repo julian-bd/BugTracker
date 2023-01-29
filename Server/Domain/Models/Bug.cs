@@ -2,15 +2,13 @@
 
 public class Bug : IReadModel
 {
-    private readonly List<Guid> _users;
+    private List<Guid> _users;
     public Guid Id { get; set; }
     public IEnumerable<Guid> Users => _users;
-    public bool IsOpen { get; private set; }
-
-    public string Description { get; }
-
-    public string Title { get; }
-
+    public bool IsOpen { get; set; }
+    public string Description { get; set; }
+    public DateTime DateCreated { get; set; }
+    public string Title { get; set; }
 
     public Bug(string title, string description)
     {
@@ -19,6 +17,7 @@ public class Bug : IReadModel
         IsOpen = true;
         _users = new List<Guid>();
         Id = Guid.NewGuid();
+        DateCreated = DateTime.UtcNow;
     }
 
     public void Close()
@@ -28,6 +27,11 @@ public class Bug : IReadModel
 
     public void AssignToUser(Guid user)
     {
+        if (_users is null)
+        {
+            _users = new List<Guid>();
+        }
+        
         _users.Add(user);
     }
 }

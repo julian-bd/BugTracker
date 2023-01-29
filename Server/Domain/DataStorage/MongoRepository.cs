@@ -11,7 +11,7 @@ public class MongoRepository<T> : IRepository<T> where T : IReadModel
     {
         var client = new MongoClient("mongodb://root:example@mongo:27017");
         var db = client.GetDatabase("BugTracker");
-        _collection = db.GetCollection<T>(nameof(T));
+        _collection = db.GetCollection<T>(typeof(T).Name);
     }
     
     public async Task<IEnumerable<T>> GetAll()

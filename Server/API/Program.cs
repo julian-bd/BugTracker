@@ -6,6 +6,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(o =>
+{
+    o.AddDefaultPolicy(p =>
+    {
+        p.AllowAnyHeader()
+            .AllowAnyOrigin()
+            .AllowAnyMethod();
+    });
+}); 
 
 if (builder.Environment.IsDevelopment())
 {
@@ -30,6 +39,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 
+
 app.MapControllers();
+
+app.UseCors();
 
 app.Run();

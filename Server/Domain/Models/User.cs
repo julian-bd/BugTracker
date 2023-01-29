@@ -6,7 +6,7 @@ public class User : IReadModel
 {
 
     public Guid Id { get; set; }
-    public string Name { get; private set; }
+    public string Name { get; set; }
 
     public User(string name)
     {
